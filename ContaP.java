@@ -1,8 +1,14 @@
 
-import javafx.scene.chart.PieChart.Data;
+import java.util.Date;
 
-public class ContaP{
-    public ContaP(Data aniversario){
-   
-    }
+public class ContaP extends Conta{
+Date data=new Date();
+public ContaP(){
+
+
+}
+public void getD(){
+    
+    System.out.println(data);
+}
 }
