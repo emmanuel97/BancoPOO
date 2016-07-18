@@ -1,7 +1,11 @@
     
-public class PessoaJ {
+public class PessoaJ extends Cliente{
     
-    public PessoaJ(String CNPJ,String nomeFant){
-        
+   String CNPJ,String nomeFant;
+   public void setCNPJ(String cnpj){
+       CNPJ=cnpj;
+   }
+    public void setNF(String fant){
+        nomeFant=fant;
     }
 }
