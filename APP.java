@@ -1,5 +1,6 @@
 
 import java.util.HashMap;
+import java.util.Set;
 
 
 
@@ -34,10 +35,31 @@ public class APP {
     public Agencia buscarA(Banco x,String chaveAgencia){
     	return x.buscarA(chaveAgencia);
     }
-    public Cliente buscarCliente(Banco y,Agencia x,String chaveCliente){
-    	return y.buscarCliente(x,chaveCliente);
+    public Cliente buscarClienteF(Banco y,Agencia x,String chaveCliente){
+    	return y.buscarClienteF(x,chaveCliente);
     }
-    public Conta buscarConta(Banco y,Agencia x,String chaveConta){
-    	return y.buscarConta(x,chaveConta);
+    public Conta buscarContaC(Banco y,Agencia x,String chaveConta){
+    	return y.buscarContaC(x,chaveConta);
     }
+    public Cliente buscarClienteJ(Banco y,Agencia x,String chaveCliente){
+    	return y.buscarClienteJ(x,chaveCliente);
+    }
+    public Conta buscarContaP(Banco y,Agencia x,String chaveConta){
+    	return y.buscarContaP(x,chaveConta);
+    }
+    public void listaClientes(Banco x,Agencia y){
+    	x.listaClientes(y);
+    }
+    
+    public void listaAgencias(Banco x){
+    	x.listaAgencias();
+    }
+    
+    public void listaBancos(){
+    	System.out.println("Os Bancos cadastrados neste programa são\n");
+        Set<String> chavesB = bancos.keySet();
+        for(String chave: chavesB){
+            System.out.println(bancos.get(chave).dadosB()+"\n");}
+    }
+
 }
