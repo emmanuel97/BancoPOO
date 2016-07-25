@@ -1,13 +1,7 @@
 
 public class PessoaF extends Cliente{
-   String CPF;
-   public void setCPF(String cpf){
-       CPF=cpf;
-   }
-   public String getCPF(){
-       return CPF;
-   }
-   
-   
-   
+String CPF;
+	public void setCPF(String Cpf){
+	this.CPF=Cpf;
+	}
 }
