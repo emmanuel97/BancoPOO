@@ -1,5 +1,6 @@
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class Banco {
      HashMap<String,Agencia> agencias = new HashMap<>();
@@ -43,10 +44,26 @@ public class Banco {
     public Agencia buscarA(String chaveAgencia){
     	return agencias.get(chaveAgencia);
 }
-    public Cliente buscarCliente(Agencia x,String chaveCliente){
-    	return x.buscarCliente(chaveCliente);
+    public PessoaJ buscarClienteJ(Agencia x,String chaveCliente){
+    	return x.buscarClienteJ(chaveCliente);
     }
-    public Conta buscarConta(Agencia x,String chaveConta){
-    	return x.buscarConta(chaveConta);
+    public PessoaF buscarClienteF(Agencia x,String chaveCliente){
+    	return x.buscarClienteF(chaveCliente);
+    }
+    public ContaPoupança buscarContaP(Agencia x,String chaveConta){
+    	return x.buscarContaP(chaveConta);
+    }
+    public ContCorrente buscarContaC(Agencia x,String chaveConta){
+    	return x.buscarContaC(chaveConta);
+    }
+    public void listaClientes(Agencia y){
+    	y.listaClientes();
+    }
+    
+    public void listaAgencias(){
+    	System.out.println("As Agencias deste Banco são:\n");
+        Set<String> chavesA = agencias.keySet();
+        for(String chave: chavesA){
+            System.out.println(agencias.get(chave).dadosA()+"\n");}
     }
 }
