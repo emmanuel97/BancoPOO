@@ -5,27 +5,39 @@ import java.util.HashMap;
 
 public class APP {
      HashMap<String,Banco> bancos = new HashMap<>();
-    public APP(){
    
-  
-    }
-     /**
-     *cria um novo banco
-     * @param chave
-     * @param nomeB
-     * @param numB
-     */
-    public void criarBanco(String chave,String nomeB,int numB){
-     Banco x;
-     bancos.put(chave,x=new Banco( nomeB,numB)); 
+    public void criarBanco(String chave,String nomeB,String numB){
+     Banco x=new Banco( nomeB,numB);
+     bancos.put(chave,x); 
      }
-    public void criarAgencia(Banco x,String chave,int numA,String nomeA,String telA,String nomeGerente){
-        x.criarAgencia( chave, numA, nomeA, telA, nomeGerente);
+    public void criarAgencia(Banco x,String chaveAgencia,String numA,String nomeA,String telA,String nomeGerente){
+        x.criarAgencia(numA, nomeA, telA, nomeGerente);
     }
-    public void criarConta(Banco x,Agencia y,Cliente c,String chaveConta,int numConta,int limiteConta, String tipoConta){
-       x.criarConta(y, c, chaveConta, numConta, limiteConta, tipoConta);
+    public void criarContaC(Banco x,Agencia y,Cliente c,String chaveConta,String numConta,double limite){
+       x.criarContaC(y, c, chaveConta, numConta, limite);
 }
-    public void criarCliente(Banco x,Agencia y,String chaveCliente,String nomeC,String telC,String emailC){
-         x.criarCliente(y, chaveCliente, nomeC, telC, emailC);
-}
+    public void criarContaP(Banco x,Agencia y,Cliente c,String chaveConta,String numConta){
+        x.criarContaP(y, c, chaveConta, numConta);
+ }
+   
+    public void criarClienteF(Banco x,Agencia y,String chaveCliente,String nomeC,String telC,String emailC,String CPF){
+    x.criarClienteF(y, chaveCliente, nomeC, telC, emailC,CPF);
+    }
+        
+     public void criarClienteJ(Banco x,Agencia y,String chaveCliente,String nomeC,String telC,String emailC,String NF,String CNPJ){
+     x.criarClienteJ(y, chaveCliente, nomeC, telC, emailC,NF,CNPJ);
+     }
+    
+    public Banco buscarB(String chaveBanco){
+    	return bancos.get(chaveBanco);
+    }
+    public Agencia buscarA(Banco x,String chaveAgencia){
+    	return x.buscarA(chaveAgencia);
+    }
+    public Cliente buscarCliente(Banco y,Agencia x,String chaveCliente){
+    	return y.buscarCliente(x,chaveCliente);
+    }
+    public Conta buscarConta(Banco y,Agencia x,String chaveConta){
+    	return y.buscarConta(x,chaveConta);
+    }
 }
