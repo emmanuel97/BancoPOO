@@ -1,15 +1,10 @@
 
-public class ContaC extends Conta{
-    double limite;
-
-    
-public void setL(double l){
-    this.limite=l;
+public class ContCorrente extends Conta{
+double limite;
+public void setL(double limite){
+	this.limite=limite;
 }
 public double getL(){
     return limite;
 }
-
-        
-    
 }
