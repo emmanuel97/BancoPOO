@@ -1,179 +1,69 @@
-import java.util.Scanner;
-public class Main {
 
-	
+import java.util.HashMap;
+import java.util.Set;
 
-	public static void main(String[] args) {
-	APP admin=new APP();
-	Scanner ler = new Scanner(System.in);
-	String chaveBanco,chaveAgencia,chaveCliente,chaveConta,nomeB,nomeA,nomeGerente,nomeC,telA,telC,emailC,CPF,CNPJ,NF,numA,numB,numConta;
-	int x;
-	double limite;
-	
-	while (true){
-	System.out.println("Menu de Administrador:\n1-Criar Banco.\n2-Criar Agencia.\n3-Criar cliente-Pessoa fisica.\n4-Criar cliente-pessoa juridica.\n5-Criar conta corrente.\n6-Criar conta poupança.\n7-Buscar Banco.\n8-Buscar Agencia.\n9-Buscar Cliente.\n10-mudar limite Conta corrente.11-Depositar dinheiro.\n12-Extrair dinheiro.\n13-Sair do programa\n");
-	x=ler.nextInt();
-	switch(x){
-	case 1:
-	System.out.println("Digite o nome do Banco:\n");
-	chaveBanco=ler.next();
-	nomeB=chaveBanco;
-	System.out.println("Digite o numero de Registro do Banco:\n");
-	numB=ler.next();
-	admin.criarBanco(chaveBanco, nomeB, numB);
-	break;
-	case 2:
-		System.out.println("Digite O nome do Banco onde se quer registra a agencia:\n");
-		chaveBanco=ler.next();
-		System.out.println("Digite o numero da Agencia:\n");
-		numA=ler.next();
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		nomeA=chaveAgencia;
-		nomeGerente=ler.next();
-		telA=ler.next();
-		
-		if(admin.buscarB(chaveBanco)!=null)
-		admin.criarAgencia(admin.buscarB(chaveBanco), chaveAgencia, numA, nomeA, telA, nomeGerente);
-	break;
-	case 3:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		System.out.println("Digite o nome do Cliente:\n");
-		chaveCliente=ler.next();
-		nomeC=chaveCliente;
-		System.out.println("Digite o E-mail:\n");
-		emailC=ler.next();
-		System.out.println("Digite o Telefone:\n");
-		telC=ler.next();
-		System.out.println("Digite o CPF:\n");
-		CPF=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
-	admin.criarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia), chaveCliente, nomeC, telC, emailC,CPF);	
-		}}	
-		break;
-	case 4:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		System.out.println("Digite o nome do Cliente:\n");
-		chaveCliente=ler.next();
-		nomeC=chaveCliente;
-		System.out.println("Digite o E-mail:\n");
-		emailC=ler.next();
-		System.out.println("Digite o Telefone:\n");
-		telC=ler.next();
-		System.out.println("Digite o Nome de Fantasia:\n");
-		NF=ler.next();
-		System.out.println("Digite o CNPJ:\n");
-		CNPJ=ler.next();
-		
-		if(admin.buscarB(chaveBanco)!=null){if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
-	admin.criarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia), chaveCliente, nomeC, telC, emailC,NF,CNPJ);	
-		}}	
-		break;
-	case 5:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		System.out.println("Digite o nome do Cliente:\n");
-		chaveCliente=ler.next();
-		System.out.println("Digite o numero da Conta:\n");
-		chaveConta=ler.next();
-		System.out.println("Digite o limite da Conta:\n");
-		limite=ler.nextDouble();
-		numConta=chaveConta;
-		if(admin.buscarB(chaveBanco)!=null){
-		if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
-		if(admin.buscarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente)!=null){
-	admin.criarContaC(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), admin.buscarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente), chaveConta, numConta, limite);	
-		}else if(admin.buscarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente)!=null){
-	admin.criarContaC(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), admin.buscarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente), chaveConta, numConta, limite);	
-		}}}
-	break;
-	case 6:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		System.out.println("Digite o nome do Cliente:\n");
-		chaveCliente=ler.next();
-		System.out.println("Digite o numero da Conta:\n");
-		chaveConta=ler.next();
-		numConta=chaveConta;
-		if(admin.buscarB(chaveBanco)!=null){
-		if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
-		if(admin.buscarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente)!=null){
-	admin.criarContaP(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), admin.buscarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente), chaveConta, numConta);	
-		}else if(admin.buscarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente)!=null){
-	admin.criarContaP(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), admin.buscarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente), chaveConta, numConta);	
-		}}}
-	break;
-	case 7:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		if(admin.buscarB(chaveBanco)!=null)System.out.println(admin.buscarB(chaveBanco).dadosB());
-	break;
-	case 8:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
-		chaveAgencia=ler.next();
-		System.out.println(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia).dadosA());
-		}}break;
-	case 9:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
-		System.out.println("Digite o nome do Cliente:\n");
-		chaveCliente=ler.next();
-		if(admin.buscarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente).dadosC()!=null){
-		System.out.println(admin.buscarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente).dadosC());}
-		else if(admin.buscarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente).dadosC()!=null){
-			System.out.println(admin.buscarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente).dadosC());}
-		}}break;
-	case 10:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
-		System.out.println("Digite o nome do Cliente:\n");
-		chaveCliente=ler.next();
-		if(admin.buscarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente)!=null || admin.buscarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente)!=null){
-		System.out.println("digite o novo limite da conta");
-		limite=ler.nextDouble();
-		}}}
-		break;
-	case 11:
-		admin.listaBancos();
-		break;
-	case 12:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){admin.buscarB(chaveBanco).listaAgencias();}
-		break;
-	case 13:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
-		admin.listaClientes(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia));}}
-		break;
-	}
-	}
-	}
-
+public class Banco {
+     HashMap<String,Agencia> agencias = new HashMap<>();
+     String nome,num;
+     
+    public Banco(String nome,String num){
+   this.num=num;
+   this.nome=nome;
+    }
+  
+    public void criarAgencia(String numA,String nomeA,String telA,String nomeGerente){
+     Agencia x=new Agencia(numA,nomeA,telA,nomeGerente);
+     agencias.put(numA,x); 
+     }
+    public String dadosB(){
+    	return "Nome:"+nome+".\nNumero de registro:"+num+".\n";
+    }
+    public String dadosA(String chaveAgencia){
+    	if(agencias.get(chaveAgencia)!=null){
+    		return agencias.get(chaveAgencia).dadosA();
+    	}
+    	return "A Agencia procurada não existe";
+    	
+    }
+    
+    public void criarClienteF(Agencia x,String chaveCliente,String nomeC,String telC,String emailC,String CPF){
+    x.criarClienteF( chaveCliente, nomeC, telC, emailC,CPF);
+    }
+    
+    public void criarClienteJ(Agencia x,String chaveCliente,String nomeC,String telC,String emailC,String NF,String CNPJ){
+        x.criarClienteJ( chaveCliente, nomeC, telC, emailC,NF,CNPJ);
+        }
+    public void criarContaC(Agencia x,Cliente c,String chaveConta,String numConta, double limite){
+    x.criarContaC( c, chaveConta, numConta, limite);
+    }
+    public void criarContaP(Agencia x,Cliente c,String chaveConta,String numConta){
+        x.criarContaP( c, chaveConta, numConta);
+        }
+  
+    
+    public Agencia buscarA(String chaveAgencia){
+    	return agencias.get(chaveAgencia);
+}
+    public PessoaJ buscarClienteJ(Agencia x,String chaveCliente){
+    	return x.buscarClienteJ(chaveCliente);
+    }
+    public PessoaF buscarClienteF(Agencia x,String chaveCliente){
+    	return x.buscarClienteF(chaveCliente);
+    }
+    public ContaPoupança buscarContaP(Agencia x,String chaveConta){
+    	return x.buscarContaP(chaveConta);
+    }
+    public ContCorrente buscarContaC(Agencia x,String chaveConta){
+    	return x.buscarContaC(chaveConta);
+    }
+    public void listaClientes(Agencia y){
+    	y.listaClientes();
+    }
+    
+    public void listaAgencias(){
+    	System.out.println("As Agencias deste Banco são:\n");
+        Set<String> chavesA = agencias.keySet();
+        for(String chave: chavesA){
+            System.out.println(agencias.get(chave).dadosA()+"\n");}
+    }
 }
