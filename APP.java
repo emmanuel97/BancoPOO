@@ -38,13 +38,13 @@ public class APP {
     public Cliente buscarClienteF(Banco y,Agencia x,String chaveCliente){
     	return y.buscarClienteF(x,chaveCliente);
     }
-    public Conta buscarContaC(Banco y,Agencia x,String chaveConta){
+    public ContCorrente buscarContaC(Banco y,Agencia x,String chaveConta){
     	return y.buscarContaC(x,chaveConta);
     }
     public Cliente buscarClienteJ(Banco y,Agencia x,String chaveCliente){
     	return y.buscarClienteJ(x,chaveCliente);
     }
-    public Conta buscarContaP(Banco y,Agencia x,String chaveConta){
+    public ContaPoupança buscarContaP(Banco y,Agencia x,String chaveConta){
     	return y.buscarContaP(x,chaveConta);
     }
     public void listaClientes(Banco x,Agencia y){
