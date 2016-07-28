@@ -11,4 +11,14 @@ public class Conta {
         this.numero=numero;
         this.saldo=saldo;
 }  
+      public void deposito(double valor){
+    	  saldo=valor;
+      }
+      public double verSaldo(){
+    	  return saldo;
+      }
+      
+      public void extração(double valor){
+    	  saldo-=valor;
+      }
 }
