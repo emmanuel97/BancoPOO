@@ -1,19 +1,37 @@
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Set;
 
 public class Banco {
-     HashMap<String,Agencia> agencias = new HashMap<>();
+     HashMap<String,Agencia> agencias = new HashMap<String,Agencia>();
      String nome,num;
+  
      
     public Banco(String nome,String num){
    this.num=num;
    this.nome=nome;
     }
-  
-    public void criarAgencia(String numA,String nomeA,String telA,String nomeGerente){
-     Agencia x=new Agencia(numA,nomeA,telA,nomeGerente);
-     agencias.put(numA,x); 
+    Calendar data=Calendar.getInstance();
+    public String hoje(){
+    	return "hoje é "+data.get(Calendar.DAY_OF_MONTH)+"/"+(data.get(Calendar.MONTH)+1)+"/"+data.get(Calendar.YEAR);
+
+    }
+    public void proxMes(){
+    	data.add(Calendar.MONTH, 1);
+    }
+    public void antMes(){
+    	data.add(Calendar.MONTH, -1);
+    }
+    public void proxDia(){
+    	data.add(Calendar.DAY_OF_MONTH, 1);
+    }
+    public void antDia(){
+    	data.add(Calendar.DAY_OF_MONTH, -1);
+    }
+    public void criarAgencia(int numA,String nomeA,String telA,String endereço,String nomeGerente){
+     Agencia x=new Agencia(numA,nomeA,endereço,telA,nomeGerente);
+     agencias.put(String.valueOf(numA),x); 
      }
     public String dadosB(){
     	return "Nome:"+nome+".\nNumero de registro:"+num+".\n";
@@ -25,45 +43,22 @@ public class Banco {
     	return "A Agencia procurada não existe";
     	
     }
-    
-    public void criarClienteF(Agencia x,String chaveCliente,String nomeC,String telC,String emailC,String CPF){
-    x.criarClienteF( chaveCliente, nomeC, telC, emailC,CPF);
-    }
-    
-    public void criarClienteJ(Agencia x,String chaveCliente,String nomeC,String telC,String emailC,String NF,String CNPJ){
-        x.criarClienteJ( chaveCliente, nomeC, telC, emailC,NF,CNPJ);
-        }
-    public void criarContaC(Agencia x,Cliente c,String chaveConta,String numConta, double limite){
-    x.criarContaC( c, chaveConta, numConta, limite);
-    }
-    public void criarContaP(Agencia x,Cliente c,String chaveConta,String numConta){
-        x.criarContaP( c, chaveConta, numConta);
-        }
-  
-    
-    public Agencia buscarA(String chaveAgencia){
-    	return agencias.get(chaveAgencia);
+     
+    public Agencia buscarA(int numA){
+    	return agencias.get(numA);
 }
-    public PessoaJ buscarClienteJ(Agencia x,String chaveCliente){
-    	return x.buscarClienteJ(chaveCliente);
-    }
-    public PessoaF buscarClienteF(Agencia x,String chaveCliente){
-    	return x.buscarClienteF(chaveCliente);
-    }
-    public ContaPoupança buscarContaP(Agencia x,String chaveConta){
-    	return x.buscarContaP(chaveConta);
-    }
-    public ContCorrente buscarContaC(Agencia x,String chaveConta){
-    	return x.buscarContaC(chaveConta);
-    }
-    public void listaClientes(Agencia y){
-    	y.listaClientes();
-    }
     
-    public void listaAgencias(){
+  public void listaAgencias(){
     	System.out.println("As Agencias deste Banco são:\n");
         Set<String> chavesA = agencias.keySet();
         for(String chave: chavesA){
             System.out.println(agencias.get(chave).dadosA()+"\n");}
     }
+  
+  public void calcPoupança(){
+  	Set<String> chavesA = agencias.keySet();
+      for(String chave: chavesA){
+    	  agencias.get(chave).calcPoupança(data);
+    	  }
+  }
 }
