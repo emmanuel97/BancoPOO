@@ -1,72 +1,86 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Main {
 
 	
 
 	public static void main(String[] args) {
-	APP admin=new APP();
+	Banco admin=new Banco("Santanderd","1");
 	Scanner ler = new Scanner(System.in);
-	String chaveBanco,chaveAgencia,chaveCliente,chaveConta,nomeB,nomeA,nomeGerente,nomeC,telA,telC,emailC,CPF,CNPJ,NF,numA,numB,numConta;
-	int x;
+	String nomeA,nomeGerente,endereço,nomeC,telA,telC,emailC,CPF,CNPJ,NF;
+	int numA,numConta;
+	int x=0;
 	double limite,dinheiro;
-	boolean ligado=true;
-	
+	boolean ligado=true,continuar;
+	admin.calcPoupança();
 	while (ligado){
-	System.out.println("Menu de Administrador:\n1-Criar Banco.\n2-Criar Agencia.\n3-Criar cliente-Pessoa fisica.\n4-Criar cliente-pessoa juridica.\n5-Criar conta corrente.\n6-Criar conta poupança.\n7-Buscar Banco.\n8-Buscar Agencia.\n9-Buscar Cliente.\n10-Listar Bancos.\n11-Listar Agencias de um Banco.\n12-Listar Clientes da Agencia de um Banco.\n13-Mudar limite Conta corrente.\n14-Depositar dinheiro.\n15-Extrair dinheiro.\n16-ver Saldo.\n20-Sair do Programa.\n");
+	continuar=true;
+	while(continuar){
+	System.out.println("Menu de Administrador:\n\n"+admin.hoje()+"\n1-.\n2-Criar Agencia.\n3-Criar cliente-Pessoa fisica.\n4-Criar cliente-pessoa juridica.\n5-Criar conta corrente.\n6-Criar conta poupança.\n7-Buscar Banco.\n8-Buscar Agencia.\n9-Buscar Cliente.\n10-Listar Bancos.\n11-Listar Agencias de um Banco.\n12-Listar Clientes da Agencia de um Banco.\n13-Mudar limite Conta corrente.\n14-Depositar dinheiro.\n15-Extrair dinheiro.\n16-ver Saldo.\n20-Sair do Programa.\n");
+	try{
 	x=ler.nextInt();
+	continuar=false;
+	}catch (InputMismatchException e) {
+	System.err.println("Por gentileza,Inserir somente números inteiros!");
+	ler.nextLine();
+	}}	
 	switch(x){
-	/////////////////////////////////////////////////////////////////Criar Banco///////////////////////////////////////////////////////////////////////
-	case 1:
-	System.out.println("Digite o nome do Banco:\n");
-	chaveBanco=ler.next();
-	nomeB=chaveBanco;
-	System.out.println("Digite o numero de Registro do Banco:\n");
-	numB=ler.next();
-	admin.criarBanco(chaveBanco, nomeB, numB);
-	break;
+	
 	//////////////////////////////////////////////////////////////Criar Agencia////////////////////////////////////////////////////////////////////////
 	case 2:
-		System.out.println("Digite O nome do Banco onde se quer registra a agencia:\n");
-		chaveBanco=ler.next();
+		continuar=true;
+		while(continuar){
 		System.out.println("Digite o numero da Agencia:\n");
-		numA=ler.next();
+		try{
+		numA=ler.nextInt();
 		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		nomeA=chaveAgencia;
-		nomeGerente=ler.next();
+		nomeA=ler.next();
+		System.out.println("Digite o telefone da Agencia:\n");
 		telA=ler.next();
+		System.out.println("Digite o endereço da Agencia:\n");
+		endereço=ler.next();
+		System.out.println("Digite o nome do gerente da Agencia:\n");
+		nomeGerente=ler.next();
 		
-		if(admin.buscarB(chaveBanco)!=null)
-		admin.criarAgencia(admin.buscarB(chaveBanco), chaveAgencia, numA, nomeA, telA, nomeGerente);
+		admin.criarAgencia(numA, nomeA, telA,endereço, nomeGerente);
+		continuar=false;
+		}catch (InputMismatchException e) {
+			System.err.println("Por gentileza,Inserir somente números inteiros!");
+			ler.nextLine();
+		}}
 	break;
 //////////////////////////////////////////////////////////////Criar Cliente Pessoa Fisica//////////////////////////////////////////////////////////////
 	case 3:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
+		continuar=true;
+		while(continuar){;
+		try{
+		System.out.println("Digite o numero da Agencia:\n");
+		numA=ler.nextInt();
 		System.out.println("Digite o nome do Cliente:\n");
-		chaveCliente=ler.next();
-		nomeC=chaveCliente;
+		nomeC=ler.next();
 		System.out.println("Digite o E-mail:\n");
 		emailC=ler.next();
 		System.out.println("Digite o Telefone:\n");
 		telC=ler.next();
 		System.out.println("Digite o CPF:\n");
 		CPF=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
-	admin.criarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia), chaveCliente, nomeC, telC, emailC,CPF);	
-		}}	
+		if(admin.buscarA(numA)!=null){
+		admin.buscarA(numA).criarClienteF(nomeC, telC, emailC, CPF);
+		}continuar=false;	
+	}catch (InputMismatchException e) {
+		System.err.println("Por gentileza,Inserir somente números inteiros!");
+		ler.nextLine();
+	}}	
 		break;
-	case 4:
+		case 4:
 		//////////////////////////////////////////////////////////Criar Cliente Pessoa Juridica///////////////////////////////////////////////////////////////
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
+			continuar=true;
+			while(continuar){
+			try{
+		System.out.println("Digite o numero da Agencia:\n");
+		numA=ler.nextInt();
 		System.out.println("Digite o nome do Cliente:\n");
-		chaveCliente=ler.next();
-		nomeC=chaveCliente;
+		nomeC=ler.next();
 		System.out.println("Digite o E-mail:\n");
 		emailC=ler.next();
 		System.out.println("Digite o Telefone:\n");
@@ -76,177 +90,231 @@ public class Main {
 		System.out.println("Digite o CNPJ:\n");
 		CNPJ=ler.next();
 		
-		if(admin.buscarB(chaveBanco)!=null){if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
-	admin.criarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia), chaveCliente, nomeC, telC, emailC,NF,CNPJ);	
-		}}	
+		if(admin.buscarA(numA)!=null){
+			admin.buscarA(numA).criarClienteJ(nomeC, telC, emailC,NF,CNPJ);	
+		}	continuar=false;
+			}catch (InputMismatchException e) {
+				System.err.println("Por gentileza,Inserir somente números inteiros!");
+				ler.nextLine();
+			}}	
 		break;
 	//////////////////////////////////////////////////////////Criar Conta Corrente/////////////////////////////////////////////////////////////////////	
 	case 5:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
+		continuar=true;
+		while(continuar){
+		try{
+		System.out.println("Digite o numero da Agencia:\n");
+		numA=ler.nextInt();
 		System.out.println("Digite o nome do Cliente:\n");
-		chaveCliente=ler.next();
+		nomeC=ler.next();
 		System.out.println("Digite o numero da Conta:\n");
-		chaveConta=ler.next();
+		numConta=ler.nextInt();
 		System.out.println("Digite o limite da Conta:\n");
 		limite=ler.nextDouble();
-		numConta=chaveConta;
-		if(admin.buscarB(chaveBanco)!=null){
-		if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
-		if(admin.buscarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente)!=null){
-	admin.criarContaC(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), admin.buscarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente), chaveConta, numConta, limite);	
-		}else if(admin.buscarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente)!=null){
-	admin.criarContaC(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), admin.buscarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente), chaveConta, numConta, limite);	
-		}}}
+		if(admin.buscarA( numA)!=null){
+		if(admin.buscarA(numA).buscarClienteJ( nomeC)!=null){
+			admin.buscarA(numA).criarContaC(admin.buscarA(numA).buscarClienteJ( nomeC), numConta, limite);
+		}else if(admin.buscarA(numA).buscarClienteF( nomeC)!=null){
+			admin.buscarA(numA).criarContaC(admin.buscarA(numA).buscarClienteJ( nomeC), numConta, limite);
+		}}continuar=false;
+		}catch (InputMismatchException e) {
+			System.err.println("Por gentileza,Inserir somente números inteiros!");
+			ler.nextLine();
+		}}
 	break;
 	//////////////////////////////////////////////////////////////Criar Conta Poupança////////////////////////////////////////////////////////////////
 	case 6:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
+		continuar=true;
+		while(continuar){
+		try{
+		System.out.println("Digite o numero da Agencia:\n");
+		numA=ler.nextInt();
 		System.out.println("Digite o nome do Cliente:\n");
-		chaveCliente=ler.next();
+		nomeC=ler.next();
 		System.out.println("Digite o numero da Conta:\n");
-		chaveConta=ler.next();
-		numConta=chaveConta;
-		if(admin.buscarB(chaveBanco)!=null){
-		if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
-		if(admin.buscarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente)!=null){
-	admin.criarContaP(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), admin.buscarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente), chaveConta, numConta);	
-		}else if(admin.buscarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente)!=null){
-	admin.criarContaP(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), admin.buscarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente), chaveConta, numConta);	
-		}}}
-	break;
-	//////////////////////////////////////////////////////////////Buscar Bancos////////////////////////////////////////////////////////////////////////
+		numConta=ler.nextInt();
+		if(admin.buscarA( numA)!=null){
+			if(admin.buscarA(numA).buscarClienteJ( nomeC)!=null){
+				admin.buscarA(numA).criarContaP(admin.buscarA(numA).buscarClienteJ( nomeC), numConta);
+			}else if(admin.buscarA(numA).buscarClienteF( nomeC)!=null){
+				admin.buscarA(numA).criarContaP(admin.buscarA(numA).buscarClienteJ( nomeC), numConta);
+			}}continuar=false;
+	}catch (InputMismatchException e) {
+		System.err.println("Por gentileza,Inserir somente números inteiros!");
+		ler.nextLine();
+	}}	
+		break;
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	case 7:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		if(admin.buscarB(chaveBanco)!=null)System.out.println(admin.buscarB(chaveBanco).dadosB());
 	break;
 	//////////////////////////////////////////////////////////////Buscar Agencias//////////////////////////////////////////////////////////////////////
 	case 8:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
-		chaveAgencia=ler.next();
-		System.out.println(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia).dadosA());
-		}}break;
+		continuar=true;
+		while(continuar){
+		try{
+		System.out.println("Digite o numero da Agencia:\n");
+		numA=ler.nextInt();
+		if(admin.buscarA( numA)!=null){
+		System.out.println(admin.buscarA( numA).dadosA());
+		}continuar=false;
+	
+		}catch (InputMismatchException e) {
+			System.err.println("Por gentileza,Inserir somente números inteiros!");
+			ler.nextLine();
+		}}
+		break;
 	//////////////////////////////////////////////////////////////Buscar Cliente//////////////////////////////////////////////////////////////////////
 	case 9:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
+		continuar=true;
+		while(continuar){
+		try{
+		System.out.println("Digite o numero da Agencia:\n");
+		numA=ler.nextInt();
+		if(admin.buscarA( numA)!=null){
 		System.out.println("Digite o nome do Cliente:\n");
-		chaveCliente=ler.next();
-		if(admin.buscarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente)!=null){
-		System.out.println(admin.buscarClienteF(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente).dadosC());}
-		else if(admin.buscarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente)!=null){
-			System.out.println(admin.buscarClienteJ(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveCliente).dadosC());}
-		}}break;
+		nomeC=ler.next();
+		if(admin.buscarA(numA).buscarClienteJ( nomeC)!=null){
+		System.out.println(admin.buscarA(numA).buscarClienteJ( nomeC).dadosC());}
+		else if(admin.buscarA(numA).buscarClienteF( nomeC)!=null){
+			System.out.println(admin.buscarA(numA).buscarClienteF( nomeC).dadosC());}
+		}continuar=false;
+
+		}catch (InputMismatchException e) {
+			System.err.println("Por gentileza,Inserir somente números inteiros!");
+			ler.nextLine();
+		}}
+		break;
 		///////////////////////////////////////////////////////////Listar Bancos//////////////////////////////////////////////////////////////////////
 	case 10:
-		admin.listaBancos();
+		
 		break;
 		///////////////////////////////////////////////////Listar Agencias de um Banco////////////////////////////////////////////////////////////////
 	case 11:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){admin.buscarB(chaveBanco).listaAgencias();}
+		admin.listaAgencias();
 		break;
 		//////////////////////////////////////////////////////Listar os Clientes de uma agencia///////////////////////////////////////////////////////
 	case 12:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
-		admin.listaClientes(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia));}}
+		continuar=true;
+		while(continuar){
+		try{
+		System.out.println("Digite o numero da Agencia:\n");
+		numA=ler.nextInt();
+		if(admin.buscarA( numA)!=null){
+		admin.buscarA( numA).listaClientes();}
+		continuar=false;
+		}catch (InputMismatchException e) {
+			System.err.println("Por gentileza,Inserir somente números inteiros!");
+			ler.nextLine();
+		}}	
 		break;
 	///////////////////////////////////////////////////////Mudar Limite da Conta Corrente/////////////////////////////////////////////////////////////	
 	case 13:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
+		continuar=true;
+		while(continuar){
+		try{
+		System.out.println("Digite o numero da Agencia:\n");
+		numA=ler.nextInt();
+		if(admin.buscarA( numA)!=null){
 		System.out.println("Digite o numero da Conta:\n");
-		chaveConta=ler.next();
-		
-		if(admin.buscarContaC(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveConta)!=null){
+		numConta=ler.nextInt();
+		if(admin.buscarA(numA).buscarContaC(numConta)!=null){
 			System.out.println("digite o novo limite da Conta");
 			limite=ler.nextDouble();
-		admin.buscarContaC(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveConta).setL(limite);}
+			admin.buscarA(numA).buscarContaC(numConta).setL(limite);}
 			else 
-				System.out.println("Não existe uma conta Corrente com esse numero");
-		}}break;
+		System.out.println("Não existe uma conta Corrente com esse numero");
+		}continuar=false;
+		}catch (InputMismatchException e) {
+			System.err.println("Por gentileza,Inserir somente números inteiros!");
+			ler.nextLine();
+		}}
+		break;
 	/////////////////////////////////////////////////////////////////Depositar dinheiro na conta/////////////////////////////////////////////////////
 	case 14:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
+		continuar=true;
+		while(continuar){
+		try{
+		System.out.println("Digite o numero da Agencia:\n");
+		numA=ler.nextInt();
+		if(admin.buscarA( numA)!=null){
 		System.out.println("Digite o numero da Conta:\n");
-		chaveConta=ler.next();
+		numConta=ler.nextInt();
 		System.out.println("Digite a quantidade que deseja depositar.\n");
 		dinheiro=ler.nextDouble();
-		if(admin.buscarContaC(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveConta)!=null){
-		admin.buscarContaC(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveConta).deposito(dinheiro);}
-		else if(admin.buscarContaP(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveConta)!=null){
-			admin.buscarContaP(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveConta).deposito(dinheiro);}
-		}}break;
-		
+		if(admin.buscarA(numA).buscarContaC( numConta)!=null){
+			admin.buscarA(numA).buscarContaC( numConta).deposito(dinheiro);}
+		else if(admin.buscarA(numA).buscarContaP( numConta)!=null){
+			admin.buscarA(numA).buscarContaP( numConta).deposito(dinheiro);}
+		}continuar=false;
+		}catch (InputMismatchException e) {
+			System.err.println("Por gentileza,Inserir somente números inteiros!");
+			ler.nextLine();
+		}}	
+		break;
 	////////////////////////////////////////////////////////Extrair dinheiro da conta////////////////////////////////////////////////////////////////	
 	case 15:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
+		continuar=true;
+		while(continuar){
+		try{
+		System.out.println("Digite o numero da Agencia:\n");
+		numA=ler.nextInt();
+		if(admin.buscarA( numA)!=null){
 		System.out.println("Digite o numero da Conta:\n");
-		chaveConta=ler.next();
+		numConta=ler.nextInt();
 		System.out.println("Digite a quantidade que deseja retirar.\n");
 		dinheiro=ler.nextDouble();
-		if(admin.buscarContaC(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveConta)!=null){
-		admin.buscarContaC(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveConta).extração(dinheiro);}
-		else if(admin.buscarContaP(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveConta)!=null){
-			admin.buscarContaP(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveConta).extração(dinheiro);}
-		}}break;
+		if(admin.buscarA(numA).buscarContaC( numConta)!=null){
+			admin.buscarA(numA).buscarContaC( numConta).extração(dinheiro);}
+		else if(admin.buscarA(numA).buscarContaP( numConta)!=null){
+			admin.buscarA(numA).buscarContaP( numConta).extração(dinheiro);}
+		}continuar=false;
+	}catch (InputMismatchException e) {
+		System.err.println("Por gentileza,Inserir somente números inteiros!");
+		ler.nextLine();
+		}}
+		break;
 	///////////////////////////////////////////////////Ver Saldo////////////////////////////////////////////////////////////////////////////////////	
 	case 16:
-		System.out.println("Digite o nome do Banco:\n");
-		chaveBanco=ler.next();
-		if(admin.buscarB(chaveBanco)!=null){
-		System.out.println("Digite o nome da Agencia:\n");
-		chaveAgencia=ler.next();
-		if(admin.buscarA(admin.buscarB(chaveBanco), chaveAgencia)!=null){
+		continuar=true;
+		while(continuar){
+		try{
+		System.out.println("Digite o numero da Agencia:\n");
+		numA=ler.nextInt();
+		if(admin.buscarA( numA)!=null){
 		System.out.println("Digite o numero da Conta:\n");
-		chaveConta=ler.next();
-		System.out.println("Digite a quantidade que deseja retirar.\n");
-		dinheiro=ler.nextDouble();
-		if(admin.buscarContaC(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveConta)!=null){
-			System.out.println(admin.buscarContaC(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveConta).verSaldo());}
-		else if(admin.buscarContaP(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveConta)!=null){
-			System.out.println(admin.buscarContaP(admin.buscarB(chaveBanco), admin.buscarA(admin.buscarB(chaveBanco),chaveAgencia), chaveConta).verSaldo());}
-		}}break;
+		numConta=ler.nextInt();
+		if(admin.buscarA(numA).buscarContaC( numConta)!=null){
+			admin.buscarA(numA).buscarContaC( numConta).verSaldo();}
+		else if(admin.buscarA(numA).buscarContaP( numConta)!=null){
+			admin.buscarA(numA).buscarContaP( numConta).verSaldo();}
+		}continuar=false;
+		}catch (InputMismatchException e) {
+			System.err.println("Por gentileza,Inserir somente números inteiros!");
+			ler.nextLine();
+		}}
+		break;
 		//////////////////////////////////////////sair doPrograma////////////////////////////////////////////////////////////////////////////////////
-	case 20:
+	case 0:
 		ligado=false;
 	break;
+	case -1:
+		admin.proxDia();
+		admin.calcPoupança();
+	break;
+	case -2:
+		admin.antDia();
+		admin.calcPoupança();
+	break;
+	case -3:
+		admin.proxMes();
+		admin.calcPoupança();
+	break;
+	case -4:
+		admin.antMes();
+		admin.calcPoupança();
+	break;
+	}
+	
 	}
 	}
-	}
-
 }
