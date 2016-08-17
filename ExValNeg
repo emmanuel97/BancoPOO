@@ -1,0 +1,12 @@
+package Banco;
+
+public class ExValNeg extends Exception{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7338273617241780108L;
+
+	public String getMessage(){
+		return "Valor invalido para a operação.\n";
+	}
+}
