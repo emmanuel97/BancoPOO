@@ -1,5 +1,17 @@
+package Agencias;
+
+import Clientes.PessoaF;
+import Clientes.PessoaJ;
 
 public class ContCorrente extends Conta{
+public ContCorrente(PessoaJ j) {
+		super(j);
+		// TODO Auto-generated constructor stub
+	}
+public ContCorrente(PessoaF f) {
+	super(f);
+	// TODO Auto-generated constructor stub
+}
 double limite;
 public void setL(double limite){
 	if (ativa==true) this.limite=limite;
