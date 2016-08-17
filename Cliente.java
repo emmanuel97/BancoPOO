@@ -1,4 +1,5 @@
-
+package Clientes;
+import Agencias.*;
 public class Cliente {
 String nome,telefone,email;
  
@@ -11,12 +12,12 @@ String nome,telefone,email;
 	 return "Nome:"+nome+".\nTelefone:"+telefone+".\nemail:"+email+".\n";
  }
  
- public void buscarContaC(Agencia x,int numConta){
-	 if(x.buscarContaC(numConta)!= null)x.buscarContaC(numConta);
+ public ContCorrente buscarContaC(Agencia x,int numConta){
+	 return x.buscarContaC(numConta);
 	 
  }
- public void buscarContaP(Agencia x,int numConta){
-	 if(x.buscarContaP(numConta)!= null)x.buscarContaP(numConta);
+ public ContaPoupança buscarContaP(Agencia x,int numConta){
+	 return x.buscarContaP(numConta);
  }
 }
 
