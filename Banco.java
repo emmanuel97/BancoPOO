@@ -1,18 +1,20 @@
-
+package Banco;
+import Agencias.*;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Set;
 
 public class Banco {
      HashMap<String,Agencia> agencias = new HashMap<String,Agencia>();
-     String nome,num;
-  
+     String nome;
+     int num;
+     Calendar data=Calendar.getInstance();
      
-    public Banco(String nome,String num){
+    public Banco(String nome,int num){
    this.num=num;
    this.nome=nome;
     }
-    Calendar data=Calendar.getInstance();
+    
     public String hoje(){
     	return "hoje é "+data.get(Calendar.DAY_OF_MONTH)+"/"+(data.get(Calendar.MONTH)+1)+"/"+data.get(Calendar.YEAR);
 
@@ -32,6 +34,7 @@ public class Banco {
     public void criarAgencia(int numA,String nomeA,String telA,String endereço,String nomeGerente){
      Agencia x=new Agencia(numA,nomeA,endereço,telA,nomeGerente);
      agencias.put(String.valueOf(numA),x); 
+     System.out.println(numA+"t");
      }
     public String dadosB(){
     	return "Nome:"+nome+".\nNumero de registro:"+num+".\n";
@@ -45,7 +48,7 @@ public class Banco {
     }
      
     public Agencia buscarA(int numA){
-    	return agencias.get(numA);
+    	return agencias.get(String.valueOf(numA));
 }
     
   public void listaAgencias(){
@@ -60,5 +63,8 @@ public class Banco {
       for(String chave: chavesA){
     	  agencias.get(chave).calcPoupança(data);
     	  }
+  }
+  public void deleteA(int chave){
+	  agencias.remove(String.valueOf(chave));
   }
 }
